@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AdminAccountPage from './AdminAccountPage';
-import BoardFrame from '../commonpages/BoardFrame';
+import BoardPage from '../commonpages/BoardPage';
 import AffiliateBusiness from './AffiliateBusiness';
 import Calendar from '../commonpages/Calendar';
 import '../styles/Mainframe.css';
@@ -30,7 +30,7 @@ const AdminFrame = ({ onLogout }) => {
             case 'alliance':
                 return <AffiliateBusiness />;
             case 'board':
-                return <BoardFrame />;
+                return <BoardPage />;
             case 'calendar':
                 return <Calendar />;
             case 'team-stats':
