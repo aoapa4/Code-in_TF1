@@ -18,9 +18,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}  # GitHub Secrets에 등록한 PEM 키
           port: 22                       # SSH 포트, 기본 22
           script: |
-            cd /home/ubuntu/Code-in_TF1/.git   # EC2 내 프로젝트 디렉토리 경로
-            git pull origin main          # 배포할 브랜치명으로 변경 가능
-            pm2 kill
+            cd /home/ubuntu  # EC2 내 프로젝트 디렉토리 경로
+            if [ ! -d Code-in_TF1 ]; then
+              git clone https://github.com/aoapa4/Code-in_TF1.git
+            fi
+            cd my-project
+
+            # 이제 여긴 Git 저장소여야 함 (.git 폴더가 존재해야 함)
+            git pull origin main
+            
             npm install --force
             npm run build
-            pm2 start index.js
+            
+            pm2 stop all || true
+            pm2 start dist/index.js
