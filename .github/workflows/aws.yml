@@ -22,7 +22,7 @@ jobs:
             if [ ! -d Code-in_TF1 ]; then
               git clone https://github.com/aoapa4/Code-in_TF1.git
             fi
-            cd my-project
+            cd Code-in_TF1.git
 
             # 이제 여긴 Git 저장소여야 함 (.git 폴더가 존재해야 함)
             git pull origin main
