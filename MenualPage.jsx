@@ -8,28 +8,23 @@ function MenualPage() {
         etc: ''
     });
 
-    const [saved, setSaved] = useState(false);
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         const savedData = localStorage.getItem('board_menual');
         if (savedData) {
             setFormData(JSON.parse(savedData));
         }
-        setLoading(false);
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            localStorage.setItem('board_menual', JSON.stringify(formData));
-            setSaved(true);
-            setTimeout(() => setSaved(false), 1500);
-            
+            localStorage.setItem('board_menual', JSON.stringify(formData));            
         } catch (error) {
             console.error('저장 중 오류:', error)
         } 
+        
+        alert('저장되었습니다.')
     };
     /*실제 코드*/
     /*useEffect(() => {
@@ -72,10 +67,6 @@ function MenualPage() {
             console.error('저장 중 오류:', error)
         } 
     };*/
-    
-    if (loading) {
-        return <div>로딩 중...</div>;
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -86,52 +77,47 @@ function MenualPage() {
     };
 
     return (
-        <>
-            <div className="content-area">
-                <form onSubmit={handleSubmit}>
-                    <div className="mpbt">
-                        {saved && <span style={{color: "white", fontSize: "15px"}}>저장되었습니다.</span>}
-                        <button className="mpsave" type="submit">저장</button>
-                    </div>
-                    <div className="form-container">
-                        <div className="left-section">
-                            <div className="form-group">
-                                <label style={{fontWeight:"bold"}}>DB 상담 멘트</label>
-                                <textarea
-                                    className="input"
-                                    name="script"
-                                    value={formData.script}
-                                    onChange={handleChange}
-                                    placeholder="내용을 입력해주세요."
+        <div className="menual-page-container">
+            <form onSubmit={handleSubmit}>
+                <div className="menual-header">
+                    <h2>업무 매뉴얼</h2>
+                    <button className="save-button" type="submit">저장</button>
+                </div>
+                <div className="form-container">
+                    <div className="left-section">
+                        <div className="form-group">
+                            <label style={{fontWeight:"bold"}}>DB 상담 멘트</label>
+                            <textarea
+                                name="script"
+                                value={formData.script}
+                                onChange={handleChange}
+                                placeholder="내용을 입력해주세요."
                             />
-                            </div>
-                        </div>
-                        <div className="right-section">
-                            <div className="form-group">
-                                <label style={{fontWeight:"bold"}}>※상담 시 체크사항</label>
-                                <textarea
-                                    className="input"
-                                    name="checklist"
-                                    value={formData.checklist}
-                                    onChange={handleChange}
-                                    placeholder="내용을 입력해주세요."
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label style={{fontWeight:"bold"}}>특이사항</label>
-                                <textarea
-                                    className="input"
-                                    name="etc"
-                                    value={formData.etc}
-                                    onChange={handleChange}
-                                    placeholder="내용을 입력해주세요."
-                                />
-                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </>
+                    <div className="right-section">
+                        <div className="form-group">
+                            <label style={{fontWeight:"bold"}}>※상담 시 체크사항</label>
+                            <textarea
+                                name="checklist"
+                                value={formData.checklist}
+                                onChange={handleChange}
+                                placeholder="내용을 입력해주세요."
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{fontWeight:"bold"}}>특이사항</label>
+                            <textarea
+                                name="etc"
+                                value={formData.etc}
+                                onChange={handleChange}
+                                placeholder="내용을 입력해주세요."
+                            />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     )
 }
 

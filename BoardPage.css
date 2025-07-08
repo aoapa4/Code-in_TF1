@@ -18,38 +18,72 @@
   --text-color: #FFFFFF;               
 }
 
-.ct-area{
+.board-page-container {
   width: 100%;
-}
-.menu-bar {
+  height: 100%;
   display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-  align-items: center;
-  border-bottom: 2px solid var(--white-10);
-  padding-bottom: 10px;
-  width: 100%;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.menu-bar button {
+.board-menu {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0;
+  align-items: center;
+  background-color: var(--color-navy-mid);
+  padding: 0;
+  width: 100%;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.menu-bt {
   background: none;
   border: none;
   color: var(--text-color);
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  padding: 6px 10px;
-  font-size: 18px;
+  padding: 15px 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
 }
 
-.menu-bar button:hover {
+.menu-bt:hover {
+  background-color: var(--color-navy-light);
   border-bottom: 3px solid var(--color-gold-dark);
-  color: var(--color-gold-dark);
+  color: var(--color-gold-light);
 }
 
-.menu-bar button.active {
+.menu-bt.active {
+  background-color: var(--color-navy-light);
   border-bottom: 3px solid var(--color-gold-light);
   color: var(--color-gold-light);
 }
 
+.menu-bt:focus {
+  outline: none;
+}
 
+.board-content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  width: 100%;
+}
 
+.board-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.board-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.board-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-gold-dark);
+  border-radius: 4px;
+}
