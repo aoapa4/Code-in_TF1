@@ -1,0 +1,26 @@
+name: Deploy to EC2 via SSH
+
+on:
+  push:
+    branches:
+      - main   # 배포할 브랜치명. 필요하면 바꾸기 (예: dev, release 등)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute remote SSH commands on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: 13.124.56.49              # EC2 퍼블릭 IP 주소로 변경
+          username: ubuntu                # EC2 사용자명 (보통 ubuntu)
+          key: ${{ secrets.EC2_SSH_KEY }}  # GitHub Secrets에 등록한 PEM 키
+          port: 22                       # SSH 포트, 기본 22
+          script: |
+            cd /home/ubuntu/my-project    # EC2 내 프로젝트 디렉토리 경로
+            git pull origin main          # 배포할 브랜치명으로 변경 가능
+            pm2 kill
+            npm install --force
+            npm run build
+            pm2 start dist/index.js
